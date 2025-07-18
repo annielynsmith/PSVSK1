@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slaid Interaktif Pendidikan Seni Visual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .slide-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+        .slide-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slide-content h1, .slide-content h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .slide-content p, .slide-content ul {
+            color: #34495e;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .slide-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+        }
+        .slide-content li {
+            margin-bottom: 8px;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #f9f9f9;
+        }
+        .nav-button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .nav-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .slide-indicator {
+            text-align: center;
+            padding: 10px 0;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .slide-content {
+                padding: 20px;
+            }
+            .slide-content h1 {
+                font-size: 1.8em;
+            }
+            .slide-content h2 {
+                font-size: 1.4em;
+            }
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide-content" id="slideContent">
+            <!-- Kandungan slaid akan dimuat di sini oleh JavaScript -->
+        </div>
+        <div class="slide-indicator" id="slideIndicator"></div>
+        <div class="navigation-buttons">
+            <button id="prevButton" class="nav-button">Sebelumnya</button>
+            <button id="nextButton" class="nav-button">Seterusnya</button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "ISU PENDIDIKAN SENI VISUAL DI MALAYSIA",
+                content: "Pendidikan Seni Visual (PSV) sering dipinggirkan dan kurang mendapat perhatian dalam pembangunan pelajar di sekolah rendah Malaysia.",
+                type: "text"
+            },
+            {
+                title: "Pengenalan PSV",
+                content: "PSV penting untuk pembangunan diri dan pencapaian pelajar melalui penerokaan, kajian, dan kerja kreatif, selaras dengan Kurikulum Standard Sekolah Menengah (KSSM) dan Kurikulum Standard Sekolah Rendah (KSSR).",
+                type: "text"
+            },
+            {
+                title: "Objektif Kajian",
+                content: "Kajian ini bertujuan untuk membincangkan keperluan Pendidikan Seni Visual dalam pendidikan rendah dengan mengenal pasti dan mengkaji semula kajian lepas berkaitan PSV.",
+                type: "list",
+                items: [
+                    "Mengenal pasti kajian lepas berkaitan Pendidikan Seni Visual.",
+                    "Mengkaji semula kajian lepas mengenai keperluan PSV seperti yang dibincangkan oleh para sarjana."
+                ]
+            },
+            {
+                title: "Metodologi Kajian",
+                content: "Data dikumpul melalui Google Scholar, meliputi artikel ilmiah dari tahun 2011 hingga 2021. Fokus kajian adalah pada pengajaran dan pembelajaran PSV, serta penggunaan aplikasi dan perisian sebagai alat bantu mengajar.",
+                type: "text"
+            },
+            {
+                title: "Penemuan Utama: Pengajaran & Pembelajaran",
+                content: "PSV berkesan dalam menunjukkan hubungan antara perasaan, emosi, dan bahasa. Ia juga mengembangkan kemahiran kognitif dan motor, serta memupuk pemikiran kreatif dan inovatif.",
+                type: "list",
+                items: [
+                    "Hubungan Emosi dan Bahasa: PSV dapat menunjukkan hubungan antara perasaan, emosi, dan bahasa lisan/tulisan melalui pergerakan dan bahasa badan.",
+                    "Pembangunan Kemahiran Kognitif dan Motor: Menggalakkan rasa ingin tahu, mengembangkan kemahiran motor halus dan kasar, serta memupuk pemikiran kreatif dan inovatif.",
+                    "Cabaran Guru dan Pelajar: Guru menghadapi beban kerja dan tentangan masyarakat. Pelajar kurang sokongan dan pendedahan kepada aktiviti kraf tangan.",
+                    "Menangani Keperluan Khas: PSV penting untuk meningkatkan ekspresi diri dan komunikasi pelajar berkeperluan khas (cth: autisme, masalah pendengaran).",
+                    "Pembangunan Kemahiran Prasekolah dan Rendah: Aktiviti lakaran asas meningkatkan keupayaan guru dan pelajar, serta kemahiran praktikal."
+                ]
+            },
+            {
+                title: "Penemuan Utama: Aplikasi & Perisian",
+                content: "Perisian multimedia interaktif (model ADDIE) memudahkan pembelajaran seni tenun Melayu. 'Helper Board' dan 'Easy Board' meningkatkan kemahiran menganyam.",
+                type: "list",
+                items: [
+                    "Perisian Multimedia Interaktif: Pembangunan perisian multimedia berdasarkan Model ADDIE memudahkan pembelajaran seni tenun Melayu.",
+                    "Alat Bantu Belajar Kraf Tangan: 'Helper Board' meningkatkan pemahaman dan kemahiran menganyam 'anyaman kelarai' pelajar Tahun Satu. 'Easy Board' meningkatkan kemahiran menganyam kertas pelajar Tahun 3.",
+                    "Integrasi dengan ICT: Kombinasi ICT dan PSV penting untuk memupuk bakat dan kreativiti pelajar di era moden.",
+                    "Latihan Guru dan Inovasi: Program latihan guru PSV penting untuk memperkenalkan pendekatan pengajaran inovatif dan membangunkan bahan pendidikan sedia pasaran.",
+                    "Seruan untuk Lebih Banyak Penyelidikan: Terdapat keperluan untuk lebih banyak kajian PSV, terutamanya dalam bidang kraf tangan dan lukisan."
+                ]
+            },
+            {
+                title: "Perbincangan",
+                content: "PSV sering dipinggirkan dan kurang dihargai walaupun manfaatnya jelas dalam membangunkan identiti diri, kreativiti, serta kemahiran kognitif dan psikomotor. Integrasi teknologi dan alat bantu perisian adalah penting untuk PSV selaras dengan kemajuan teknologi moden.",
+                type: "text"
+            },
+            {
+                title: "Kesimpulan",
+                content: "Pendidikan Seni Visual adalah penting untuk pembangunan bakat seni individu dan pembangunan diri. Ia memupuk cara berfikir yang unik, ilustrasi, imaginasi diri, dan membentuk nilai estetik melalui ciptaan visual seperti lukisan dan kraf tangan.",
+                type: "text"
+            },
+            {
+                title: "Soalan & Jawapan (1/2)",
+                type: "qa",
+                questions: [
+                    {
+                        q: "Apakah masalah utama yang dikenal pasti mengenai Pendidikan Seni Visual (PSV) di sekolah rendah?",
+                        a: "Masalah utama ialah PSV dipinggirkan dan kurang mendapat perhatian, dianggap subjek tidak popular, remeh, dan mahal, serta bukan subjek teras, menyebabkan kurang galakan dari ibu bapa."
+                    },
+                    {
+                        q: "Apakah dua aspek utama yang menjadi fokus penyelidik sarjana mengenai PSV?",
+                        a: "Dua aspek utama ialah pengajaran dan pembelajaran, serta aplikasi dan perisian alat bantu mengajar dalam PSV."
+                    }
+                ]
+            },
+            {
+                title: "Soalan & Jawapan (2/2)",
+                type: "qa",
+                questions: [
+                    {
+                        q: "Bagaimanakah teknologi dan perisian bantu boleh menyumbang kepada PSV?",
+                        a: "Teknologi dan perisian bantu boleh menyediakan perisian multimedia interaktif (cth: model ADDIE) untuk pembelajaran seni, dan alat seperti 'Helper Board' serta 'Easy Board' telah terbukti meningkatkan kemahiran menganyam."
+                    },
+                    {
+                        q: "Apakah kesimpulan keseluruhan tentang kepentingan Pendidikan Seni Visual?",
+                        a: "PSV penting untuk pembangunan diri dan pembentukan bakat seni, memupuk cara berfikir yang unik, ilustrasi, imaginasi diri, dan membentuk nilai estetik melalui ciptaan visual seperti lukisan dan kraf tangan."
+                    }
+                ]
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        const slideContentDiv = document.getElementById('slideContent');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const slideIndicator = document.getElementById('slideIndicator');
+
+        function renderSlide() {
+            const slide = slides[currentSlideIndex];
+            let htmlContent = '';
+
+            if (slide.type === "text") {
+                htmlContent = `
+                    <h1 class="text-3xl font-bold mb-4">${slide.title}</h1>
+                    <p class="text-lg">${slide.content}</p>
+                `;
+            } else if (slide.type === "list") {
+                htmlContent = `
+                    <h1 class="text-3xl font-bold mb-4">${slide.title}</h1>
+                    <p class="text-lg mb-4">${slide.content}</p>
+                    <ul class="list-disc pl-5 text-left w-full max-w-md mx-auto">
+                        ${slide.items.map(item => `<li class="text-base">${item}</li>`).join('')}
+                    </ul>
+                `;
+            } else if (slide.type === "qa") {
+                htmlContent = `
+                    <h1 class="text-3xl font-bold mb-4">${slide.title}</h1>
+                    <div class="space-y-6 w-full max-w-md mx-auto text-left">
+                        ${slide.questions.map(qa => `
+                            <div>
+                                <h2 class="text-xl font-semibold text-blue-700 mb-2">S: ${qa.q}</h2>
+                                <p class="text-base text-gray-700">J: ${qa.a}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            slideContentDiv.innerHTML = htmlContent;
+            updateNavigationButtons();
+            updateSlideIndicator();
+        }
+
+        function updateNavigationButtons() {
+            prevButton.disabled = currentSlideIndex === 0;
+            nextButton.disabled = currentSlideIndex === slides.length - 1;
+        }
+
+        function updateSlideIndicator() {
+            slideIndicator.textContent = `Slaid ${currentSlideIndex + 1} dari ${slides.length}`;
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                renderSlide();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                renderSlide();
+            }
+        });
+
+        // Render slaid pertama apabila halaman dimuat
+        document.addEventListener('DOMContentLoaded', renderSlide);
+    </script>
+</body>
+</html>
